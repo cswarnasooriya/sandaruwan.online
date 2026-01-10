@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Connect from "./pages/Connect";
 
 import Footer from "./components/Footer";
+import Resume from "./pages/Resume";
 
 const Trackers = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/work" element={<Work />} />
         <Route path="/about" element={<About />} />
         <Route path="/connect" element={<Connect />} />
+        <Route path="/resume" element={<Resume />} />
       </Routes>
 
       <Footer />

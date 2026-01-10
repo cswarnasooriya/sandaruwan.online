@@ -1,101 +1,97 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTheme } from "../context/Theme/ThemeContext";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { ExternalLink,  } from "lucide-react";
 
-const Work = () => {
+const projects = [
+  {
+    title: "AI Learning Assistant Web App",
+    description: "Cloud-based note workspace with JWT auth, CRUD, tagging, and responsive UI.",
+    tech: ["React", "Node.js", "MongoDB", "JWT", "Tailwind", "Vercel"],
+    image: "",
+    live: "",
+    github: "",
+    type: "Full Stack",
+    year: "2026 - Ongoing"
+  },
+  {
+    title: "Book Store",
+    description: "Custom alias shortener with analytic tracking and secure backend APIs.",
+    tech: ["React","Node.js", "Express", "MongoDB", "JWT"],
+    image: "",
+    github: "",
+    type: "Backend",
+    year: "2025 Oct"
+  },
+  {
+    title: "Zmedia Digital Solution - Official Website",
+    description: "Modern business website or Zmedia Digital Solution Company and optimized for SEO, speed and deployment.",
+    tech: ["React", "Tailwind", "Vercel"],
+    live: "https://zmediadigital.com",
+    image: "",
+    type: "Frontend",
+    year: "2025 Jan"
+  },
+];
+
+export default function Work() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const containerBg = isDark ? "bg-black" : "bg-white";
   const textPrimary = isDark ? "text-gray-300" : "text-gray-700";
   const textSecondary = isDark ? "text-blue-400" : "text-blue-600";
-  const cardBg = isDark
-    ? "bg-blue-950 hover:bg-blue-900/50"
-    : "bg-blue-50 hover:bg-blue-100";
-  const borderColor = isDark ? "border-blue-900/40" : "border-blue-100";
-
-  const projects = [
-    
-  ];
+  const headingColor = isDark ? "text-white" : "text-gray-900";
+  const cardBg = isDark ? "bg-blue-950/40 border-blue-900/40" : "bg-blue-50/70 border-blue-200";
 
   return (
-    <div
-      className={`${containerBg} min-h-screen py-20 transition-colors duration-300 relative overflow-hidden`}
-    >
-      <div
-        className={`absolute inset-0 pointer-events-none ${
-          isDark
-            ? "bg-gradient-to-br from-blue-950/10 via-transparent to-black/30"
-            : "bg-gradient-to-br from-blue-50/50 via-transparent to-blue-100/20"
-        }`}
-      ></div>
+    <div className={`${containerBg} min-h-screen pt-24 px-4 sm:px-6 lg:px-8 transition-colors duration-300`}>
+      <div className="max-w-6xl mx-auto pb-20">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4">
+        {/* HEADER */}
         <div className="text-center mb-16">
-          <h2
-            className={`text-4xl md:text-5xl font-bold mb-4 ${
-              isDark ? "text-white" : "text-gray-900"
-            }`}
-          >
-            My{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
-              Projects
-            </span>
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
+          <h1 className={`text-5xl md:text-6xl font-bold mb-4 ${headingColor}`}>
+            My <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">Work</span>
+          </h1>
+          <p className={`text-lg md:text-xl max-w-2xl mx-auto ${textPrimary}`}>
+            A collection of projects that demonstrate my experience building full-stack applications & digital solutions.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        {/* PROJECT GRID */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          {projects.map((p, i) => (
             <div
-              key={index}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={`rounded-2xl border ${borderColor} shadow-xl overflow-hidden transition-all duration-500 transform ${
-                hoveredIndex === index
-                  ? "scale-105 -translate-y-3 shadow-2xl"
-                  : "hover:-translate-y-2"
-              } ${cardBg} group relative`}
+              key={i}
+              className={`border ${cardBg} rounded-2xl overflow-hidden backdrop-blur-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-pointer`}
             >
-              <div className="relative h-56 overflow-hidden bg-gradient-to-b from-blue-500/10 to-transparent">
-                <img
-                  src={project.img}
-                  alt={project.title}
-                  className={`w-full h-full object-cover transition-transform duration-500 ${
-                    hoveredIndex === index ? "scale-110" : "scale-100"
-                  }`}
-                />
-                <div
-                  className={`absolute inset-0 transition-opacity duration-500 ${
-                    hoveredIndex === index
-                      ? "bg-black/40 opacity-100"
-                      : "bg-black/0 opacity-0"
-                  }`}
-                ></div>
-              </div>
-
-              <div className="p-6 flex flex-col justify-between h-[280px]">
-                <div>
-                  <h3
-                    className={`text-2xl font-bold mb-3 transition-colors duration-300 ${
-                      isDark ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    {project.title}
-                  </h3>
-                  <p className={`text-sm leading-relaxed ${textPrimary}`}>
-                    {project.desc}
-                  </p>
+              {/* IMAGE */}
+              {p.image && (
+                <div className="relative group h-40 sm:h-44 md:h-48 overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                  />
                 </div>
+              )}
+
+              {/* CONTENT */}
+              <div className="p-5">
+                <h2 className={`text-xl font-bold mb-2 ${headingColor}`}>
+                  {p.title}
+                </h2>
+
+                <p className={`text-sm mb-4 leading-relaxed ${textPrimary}`}>
+                  {p.description}
+                </p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech, idx) => (
+                  {p.tech.map((tech, idx) => (
                     <span
                       key={idx}
-                      className={`text-xs px-2.5 py-1 rounded-full font-medium transition-all duration-300 ${
+                      className={`px-2.5 py-1 text-xs font-medium rounded-lg ${
                         isDark
-                          ? "bg-blue-900/50 text-blue-300 border border-blue-700/50"
+                          ? "bg-blue-900/50 text-blue-300 border border-blue-800/40"
                           : "bg-blue-100 text-blue-700 border border-blue-200"
                       }`}
                     >
@@ -104,43 +100,54 @@ const Work = () => {
                   ))}
                 </div>
 
-                <div className="flex gap-3 mt-4">
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold transition-all duration-300 transform ${
-                      hoveredIndex === index ? "scale-105" : "scale-100"
-                    } ${
-                      isDark
-                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-600/50"
-                        : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-600/30"
-                    }`}
-                  >
-                    <FaExternalLinkAlt className="text-sm" /> Live
-                  </a>
-                  <a
-                    href={project.git}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold border-2 transition-all duration-300 transform ${
-                      hoveredIndex === index ? "scale-105" : "scale-100"
-                    } ${
-                      isDark
-                        ? "border-blue-400 text-blue-400 hover:bg-blue-950/50 hover:border-blue-300"
-                        : "border-blue-600 text-blue-600 hover:bg-blue-50 hover:border-blue-700"
-                    }`}
-                  >
-                    <FaGithub className="text-sm" /> GitHub
-                  </a>
+                <div className="flex justify-between text-sm font-medium mt-2">
+                  <span className={`${textSecondary}`}>{p.type}</span>
+                  <span className={`${textPrimary}`}>{p.year}</span>
                 </div>
+
+                {/* LINKS */}
+                {(p.live || p.github) && (
+                  <div className="flex gap-3 mt-5">
+                    {p.live && (
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        className={`flex items-center gap-1 text-sm underline-offset-2 hover:underline ${textSecondary}`}
+                      >
+                        Live <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                    {p.github && (
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        className={`flex items-center gap-1 text-sm underline-offset-2 hover:underline ${textSecondary}`}
+                      >
+                        Code <Github className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ))}
         </div>
+
+        {/* CTA */}
+        <div className="text-center mt-20">
+          <a
+            href="https://github.com/cswarnasooriya"
+            target="_blank"
+            className={`px-8 py-3 rounded-lg font-semibold transition-all duration-300 ${
+              isDark
+                ? "border-2 border-blue-400 text-blue-400 hover:bg-blue-950 hover:shadow-blue-900/30"
+                : "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:shadow-blue-200"
+            }`}
+          >
+            View More on GitHub
+          </a>
+        </div>
       </div>
     </div>
   );
-};
-
-export default Work;
+}

@@ -23,7 +23,7 @@ const Footer = () => {
 
           <div className="flex items-center gap-3">
             <a
-              href="https://www.youtube.com/@warnasooriya"
+              href="https://www.youtube.com/@warna_digital"
               target="_blank"
               rel="noopener noreferrer"
               className={`${
@@ -40,7 +40,7 @@ const Footer = () => {
           <p
             className={`${isDark ? "text-gray-500" : "text-gray-600"} text-sm`}
           >
-            © 2025 Sandaruwan Warnasooriya. All rights reserved.
+            © 2026 Sandaruwan Warnasooriya. All rights reserved.
           </p>
         </div>
       </div>

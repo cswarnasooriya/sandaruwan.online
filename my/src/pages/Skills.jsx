@@ -11,7 +11,6 @@ const categories = [
       { name: "Java", level: 80, icon: "☕" },
       { name: "Python", level: 84, icon: "🐍" },
       { name: "C", level: 70, icon: "⚡" }
-      
     ],
   },
   {
@@ -23,7 +22,6 @@ const categories = [
       { name: "Tailwind", level: 88, icon: "💨" },
       { name: "MERN Stack", level: 86, icon: "📚" },
       { name: "Next Js", level: 82, icon: "📚" }
-  
     ],
   },
   {
@@ -31,7 +29,6 @@ const categories = [
     skills: [
       { name: "SQL", level: 85, icon: "🗄️" },
       { name: "MySQL", level: 80, icon: "🐬" },
-      
       { name: "MongoDB", level: 80, icon: "🍃" },
       { name: "Node.js", level: 82, icon: "🟢" },
     ],
@@ -42,7 +39,6 @@ const categories = [
       { name: "Git", level: 90, icon: "📋" },
       { name: "GitHub", level: 92, icon: "🐙" },
       { name: "VS Code", level: 95, icon: "💻" },
-      
     ],
   },
   {
@@ -56,7 +52,7 @@ const categories = [
   },
 ];
 
-const Skills = () => {
+export default function Skills() {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -79,40 +75,26 @@ const Skills = () => {
     const [animatedLevel, setAnimatedLevel] = useState(0);
 
     useEffect(() => {
-      const timer = setTimeout(() => {
-        setAnimatedLevel(skill.level);
-      }, delay);
+      const timer = setTimeout(() => setAnimatedLevel(skill.level), delay);
       return () => clearTimeout(timer);
     }, [skill.level, delay]);
 
     return (
-      <div className="mb-4 group">
+      <div className="mb-4 cursor-pointer">
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-2">
             <span className="text-lg">{skill.icon}</span>
-            <span
-              className={`font-semibold ${
-                isDark ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
+            <span className={`font-semibold ${textPrimary}`}>
               {skill.name}
             </span>
           </div>
-          <span
-            className={`text-sm font-medium ${
-              isDark ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
+          <span className={`text-sm font-medium ${textPrimary}`}>
             {skill.level}%
           </span>
         </div>
-        <div
-          className={`w-full rounded-full h-2.5 overflow-hidden ${
-            isDark ? "bg-blue-900/30" : "bg-blue-200"
-          }`}
-        >
+        <div className={`w-full rounded-full h-2.5 overflow-hidden ${isDark ? "bg-blue-900/30" : "bg-blue-200"}`}>
           <div
-            className="h-2.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-1000 ease-out"
+            className="h-2.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-[1200ms] ease-out"
             style={{ width: `${animatedLevel}%` }}
           />
         </div>
@@ -121,99 +103,61 @@ const Skills = () => {
   };
 
   return (
-    <div
-      className={`${containerBg} min-h-screen transition-colors duration-300 px-4 sm:px-6 lg:px-8 py-16 md:py-24`}
-    >
+    <div className={`${containerBg} min-h-screen px-4 sm:px-6 lg:px-8 py-20`}>
       <div className="max-w-6xl mx-auto">
-        <div
-          className={`text-center mb-16 transition-all duration-1000 ${
-            isVisible
-              ? "translate-y-0 opacity-100"
-              : "-translate-y-10 opacity-0"
-          }`}
-        >
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent [text-fill-color:transparent] mb-4 leading-snug overflow-visible pb-1 pt-4">
+        
+        {/* Title */}
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent leading-tight">
             My Skills
           </h1>
-
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full mb-6"></div>
-          <p className={`text-lg md:text-xl ${textPrimary} max-w-3xl mx-auto`}>
-            A comprehensive overview of my technical expertise across different
-            domains of software development
+          <p className={`text-lg md:text-xl mt-4 ${textPrimary} max-w-3xl mx-auto`}>
+            A professional overview of my technical skillsets and development journey.
           </p>
         </div>
 
-        <div
-          className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 opacity-0 animate-fade-in`}
-          style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
-        >
-          <div
-            className={`text-center ${cardBg} rounded-2xl p-6 border-2 transition-all duration-300 hover:-translate-y-2`}
-          >
-            <div className={`text-3xl font-bold ${textSecondary} mb-2`}>
-              8+
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+          {[
+            { v: "8+", l: "Technologies" },
+            { v: "5", l: "Categories" },
+            { v: "3+", l: "Years Learning" },
+            { v: "∞", l: "Passion" },
+          ].map((s, i) => (
+            <div
+              key={i}
+              className={`text-center cursor-pointer ${cardBg} rounded-xl p-6 border-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg ${isDark ? "hover:shadow-blue-900/30" : "hover:shadow-blue-200"}`}
+            >
+              <div className={`text-3xl font-extrabold ${textSecondary}`}>{s.v}</div>
+              <div className={`text-sm font-medium mt-1 ${textPrimary}`}>{s.l}</div>
             </div>
-            <div className={`text-sm font-medium ${textPrimary}`}>
-              Technologies
-            </div>
-          </div>
-          <div
-            className={`text-center ${cardBg} rounded-2xl p-6 border-2 transition-all duration-300 hover:-translate-y-2`}
-          >
-            <div className={`text-3xl font-bold ${textSecondary} mb-2`}>5</div>
-            <div className={`text-sm font-medium ${textPrimary}`}>
-              Categories
-            </div>
-          </div>
-          <div
-            className={`text-center ${cardBg} rounded-2xl p-6 border-2 transition-all duration-300 hover:-translate-y-2`}
-          >
-            <div className={`text-3xl font-bold ${textSecondary} mb-2`}>3+</div>
-            <div className={`text-sm font-medium ${textPrimary}`}>
-              Years Learning
-            </div>
-          </div>
-          <div
-            className={`text-center ${cardBg} rounded-2xl p-6 border-2 transition-all duration-300 hover:-translate-y-2`}
-          >
-            <div className={`text-3xl font-bold ${textSecondary} mb-2`}>∞</div>
-            <div className={`text-sm font-medium ${textPrimary}`}>Passion</div>
-          </div>
+          ))}
         </div>
 
+        {/* Categories */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
           {categories.map((category, idx) => (
             <div
               key={category.title}
-              className={`relative transition-all duration-1000 ${
-                isVisible
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-10 opacity-0"
-              }`}
-              style={{ animationDelay: `${0.6 + idx * 0.15}s` }}
+              className={`transition-all duration-700 cursor-pointer ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${0.2 + idx * 0.15}s` }}
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div
-                className={`${cardBg} rounded-2xl border-2 p-8 transition-all duration-300 ${
-                  hoveredCard === idx
-                    ? isDark
-                      ? "border-blue-600 shadow-lg shadow-blue-900/20"
-                      : "border-blue-400 shadow-lg shadow-blue-200"
-                    : ""
+              <div className={`${cardBg} rounded-xl border-2 p-8 transition-all duration-300
+                ${hoveredCard === idx
+                  ? isDark
+                    ? "border-blue-600 shadow-lg shadow-blue-900/30"
+                    : "border-blue-400 shadow-lg shadow-blue-200"
+                  : ""
                 }`}
               >
                 <h2 className={`text-2xl font-bold mb-6 ${textSecondary}`}>
                   {category.title}
                 </h2>
-
-                <div className="space-y-1">
+                <div className="space-y-2">
                   {category.skills.map((skill, skillIdx) => (
-                    <SkillBar
-                      key={skill.name}
-                      skill={skill}
-                      delay={600 + idx * 150 + skillIdx * 100}
-                    />
+                    <SkillBar key={skill.name} skill={skill} delay={400 + skillIdx * 120} />
                   ))}
                 </div>
               </div>
@@ -221,95 +165,46 @@ const Skills = () => {
           ))}
         </div>
 
+        {/* Continuous Learning */}
         <div
-          className={`mt-16 opacity-0 animate-fade-in rounded-2xl p-8 md:p-12 ${
-            isDark
-              ? "bg-blue-950/50 border-2 border-blue-900/40"
-              : "bg-blue-100/50 border-2 border-blue-200"
-          }`}
-          style={{ animationDelay: "1.8s", animationFillMode: "forwards" }}
+          className={`${accentBg} border-2 ${isDark ? "border-blue-800" : "border-blue-300"}
+            rounded-xl p-10 transition-all duration-700`}
         >
-          <h2
-            className={`text-4xl font-bold mb-6 ${
-              isDark ? "text-white" : "text-gray-900"
-            }`}
-          >
+          <h2 className={`text-3xl font-bold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
             Continuous Learning
           </h2>
-          <p className={`text-lg mb-8 text-justify ${textPrimary}`}>
-            Technology evolves rapidly, and so do I. I'm constantly learning new
-            frameworks, exploring emerging technologies, and refining my
-            existing skills. My journey in tech is just beginning, and I'm
-            excited about what lies ahead.
+          <p className={`text-lg leading-relaxed mb-6 ${textPrimary}`}>
+            Technology evolves rapidly, and so do I. I'm constantly exploring new frameworks,
+            diving into emerging fields, and refining my core engineering fundamentals.
           </p>
-          <div className="flex gap-4 flex-wrap">
-            <div
-              className={`${accentBg} border-2 ${
-                isDark ? "border-blue-800" : "border-blue-300"
-              } px-6 py-3 rounded-full text-sm font-semibold ${textPrimary}`}
-            >
-              🎯 Currently Learning: AI & Machine Learning
-            </div>
-            <div
-              className={`${accentBg} border-2 ${
-                isDark ? "border-blue-800" : "border-blue-300"
-              } px-6 py-3 rounded-full text-sm font-semibold ${textPrimary}`}
-            >
-              🚀 Next Goal: Cloud Computing
-            </div>
-            <div
-              className={`${accentBg} border-2 ${
-                isDark ? "border-blue-800" : "border-blue-300"
-              } px-6 py-3 rounded-full text-sm font-semibold ${textPrimary}`}
-            >
-              💡 Exploring: AI/ML
-            </div>
+          <div className="flex flex-wrap gap-3">
+            {["AI & ML", "Cloud Computing", "System Design", "Open Source", "Frontend Engineering"]
+              .map((tag, i) => (
+                <div key={i}
+                  className={`${accentBg} border-2 rounded-full px-6 py-2 text-sm font-semibold cursor-pointer
+                    ${isDark ? "border-blue-700 text-blue-300" : "border-blue-400 text-blue-700"}
+                    transition-all hover:-translate-y-1`}>
+                  {tag}
+                </div>
+              ))
+            }
           </div>
         </div>
-        <div
-          className={`text-center mt-16 opacity-0 animate-fade-in`}
-          style={{ animationDelay: "2.1s", animationFillMode: "forwards" }}
-        >
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link to="/work">
-              <button className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-                View My Projects
-              </button>
-            </Link>
 
-            <Link to="/connect">
-              <button
-                className={`${
-                  isDark
-                    ? "border-2 border-blue-400 text-blue-400 hover:bg-blue-950"
-                    : "border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
-                } px-8 py-4 cursor-pointer rounded-lg font-semibold transition-all duration-300 transform hover:-translate-y-1`}
-              >
-                Let's Collaborate
-              </button>
-            </Link>
-          </div>
+        {/* CTA */}
+        <div className="text-center mt-16 flex gap-4 justify-center flex-wrap">
+          <Link to="/work">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+              View My Projects
+            </button>
+          </Link>
+          <Link to="/connect">
+            <button className={`${isDark ? "border-2 border-blue-400 text-blue-400 hover:bg-blue-900" : "border-2 border-blue-600 text-blue-600 hover:bg-blue-50"} px-8 py-3 rounded-lg font-semibold transform hover:-translate-y-1 transition-all duration-300 cursor-pointer`}>
+              Let's Collaborate
+            </button>
+          </Link>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-      `}</style>
     </div>
   );
-};
-
-export default Skills;
+}
