@@ -1,181 +1,153 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useTheme } from "../context/Theme/ThemeContext";
-import { Download, ExternalLink, MapPin, Briefcase, GraduationCap, Award } from "lucide-react";
-import { FaSchool } from "react-icons/fa";
+import { Download, Terminal, FileText } from "lucide-react";
 
-const Resume = () => {
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+};
+
+export default function Resume() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const containerBg = isDark ? "bg-black" : "bg-white";
-  const cardBg = isDark ? "bg-blue-950/40 border-blue-900/40" : "bg-blue-50/60 border-blue-200";
-  const headingColor = isDark ? "text-white" : "text-gray-900";
-  const textPrimary = isDark ? "text-gray-300" : "text-gray-700";
-  const textSecondary = isDark ? "text-blue-400" : "text-blue-600";
+  /* ── Darker & Professional Design Tokens (Matches Cyber-Aurora Theme) ── */
+  const bg          = isDark ? "#060A14"               : "#F8FAFC";
+  const surface     = isDark ? "rgba(15, 23, 42, 0.6)" : "rgba(255, 255, 255, 0.75)";
+  const border      = isDark ? "rgba(79, 70, 229, 0.2)": "rgba(79, 70, 229, 0.15)";
+  const textPrimary = isDark ? "#CBD5E1"               : "#020617";
+  const textMuted   = isDark ? "#828C9A"               : "#334155";
+  
+  const accent1     = "#4F46E5"; // Deep Indigo
+  const accent2     = "#0891B2"; // Deep Cyan
+  const gradientPrimary = `linear-gradient(135deg, ${accent1} 0%, ${accent2} 100%)`;
+  
+  const glowIndigo = isDark ? "rgba(79, 70, 229, 0.15)" : "rgba(79, 70, 229, 0.08)";
+  const glowCyan   = isDark ? "rgba(8, 145, 178, 0.15)" : "rgba(8, 145, 178, 0.08)";
+
+  // Drive links for PDF
+  const cvEmbedUrl = "https://drive.google.com/file/d/1V9Tf5TWrFAVg3-8j9_JQBfo-xXkK-r8f/preview";
+  const cvDownloadUrl = "https://drive.google.com/file/d/1V9Tf5TWrFAVg3-8j9_JQBfo-xXkK-r8f/view?usp=sharing";
 
   return (
-    <div className={`${containerBg} min-h-screen pt-28 px-6 pb-20 transition-colors duration-300`}>
-      <div className="max-w-5xl mx-auto">
+    <div style={{ minHeight: "100vh", background: bg, transition: "background 0.4s ease", position: "relative", overflow: "hidden", paddingBottom: "100px" }}>
+      
+      {/* ── Abstract Background Orbs ── */}
+      <div style={{
+        position: "absolute", top: "10%", left: "-10%", width: "40vw", height: "40vw",
+        background: glowIndigo, filter: "blur(140px)", borderRadius: "50%", zIndex: 0, pointerEvents: "none"
+      }} />
+      <div style={{
+        position: "absolute", bottom: "-10%", right: "-5%", width: "45vw", height: "45vw",
+        background: glowCyan, filter: "blur(140px)", borderRadius: "50%", zIndex: 0, pointerEvents: "none"
+      }} />
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className={`text-4xl md:text-5xl font-bold ${headingColor}`}>
-            Find My Professional Resume 2026
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+        .rs-glass-card {
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .rs-btn-primary {
+          background: ${gradientPrimary};
+          background-size: 200% auto;
+          box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25);
+          transition: all 0.4s ease;
+        }
+        .rs-btn-primary:hover {
+          background-position: right center;
+          box-shadow: 0 12px 30px rgba(8, 145, 178, 0.35);
+          transform: translateY(-2px);
+        }
+        .gradient-text {
+          background: ${gradientPrimary};
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .pdf-container iframe {
+          border-radius: 16px;
+          border: 1px solid ${border};
+          box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+      `}</style>
+
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "120px 1.5rem 0", position: "relative", zIndex: 1 }}>
+
+        {/* ══ HEADER SECTION ═════════════════════════════════════ */}
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} style={{ textAlign: "center", marginBottom: 60 }}>
+          
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            background: surface, border: `1px solid ${border}`,
+            borderRadius: 999, padding: "8px 20px", marginBottom: 28,
+            backdropFilter: "blur(10px)", boxShadow: `0 4px 20px ${glowIndigo}`
+          }}>
+            <Terminal size={14} color={accent2} />
+            <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 12, color: textPrimary, letterSpacing: "0.05em", fontWeight: 600 }}>
+              SYSTEM.RESUME === "LOADED"
+            </span>
+          </div>
+
+          <h1 style={{
+            fontFamily: "'Outfit', sans-serif", fontSize: "clamp(46px, 6vw, 78px)",
+            fontWeight: 800, lineHeight: 1.1, color: textPrimary, margin: "0 0 20px", letterSpacing: "-0.02em"
+          }}>
+            View My <span className="gradient-text"> CV</span>
           </h1>
-          <p className={`mt-8 text-lg ${textPrimary}`}>
-            Junior Software Engineer · Web Developer · MERN Fullstack Developer · ML/AI Learner
+
+          <div style={{ width: 60, height: 4, background: gradientPrimary, margin: "0 auto 24px", borderRadius: 4 }} />
+
+          <p style={{
+            fontFamily: "'Outfit', sans-serif", fontSize: 18, color: textMuted,
+            maxWidth: 650, margin: "0 auto", lineHeight: 1.7, fontWeight: 400
+          }}>
+            My academic foundation, technical skills, and professional journey summarized in one document.
           </p>
-        </div>
 
-        {/* Summary */}
-        <div className={`rounded-2xl border ${cardBg} p-6 mb-10 backdrop-blur-sm shadow-lg`}>
-          <h2 className={`text-2xl font-bold mb-3 ${headingColor}`}>Summary</h2>
-          <p className={`leading-relaxed ${textPrimary} text-justify`}>
-             I am Sandaruwan Warnasooriya, Passionate Full Stack Developer with experience in MERN stack development, frontend engineering, Interactive and Fast Learner at AI and ML also, 
-            and scalable web application deployment. Skilled in transforming ideas into functional digital products with attention 
-            to performance, user experience, and modern design standards. Content creator and lifelong learner exploring 
-            AI/ML and system design fundamentals. Hope to skilled up and develop my skill in my Software Engineer carrer path also in 2026.
-          </p>
-        </div>
-
-        {/* Skills Section */}
-        <div className={`rounded-2xl border ${cardBg} p-6 mb-10 backdrop-blur-sm shadow-lg`}>
-          <h2 className={`text-2xl font-bold mb-5 ${headingColor}`}>Technical Skills</h2>
-
-          <div className="grid md:grid-cols-3 gap-4">
-            <div>
-              <h3 className={`font-semibold mb-2 ${headingColor}`}>Frontend</h3>
-              <ul className={`space-y-1 ${textPrimary}`}>
-                <li>React.js</li>
-                <li>JavaScript (ES6+)</li>
-                <li>Next.js</li>
-                <li>Tailwind CSS</li>
-                <li>Python</li>
-                <li>PHP</li>
-                <li>HTML / CSS</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className={`font-semibold mb-2 ${headingColor}`}>Backend</h3>
-              <ul className={`space-y-1 ${textPrimary}`}>
-                <li>Node.js</li>
-                <li>Express.js</li>
-                <li>MongoDB</li>
-                <li>REST APIs</li>
-                <li>MySQL / PostgreSQL</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className={`font-semibold mb-2 ${headingColor}`}>Tools & Platforms</h3>
-              <ul className={`space-y-1 ${textPrimary}`}>
-                <li>Git / GitHub</li>
-                <li>Vercel / Render</li>
-                <li>VS Code</li>
-                <li>Docker (Basics)</li>
-              </ul>
-            </div>
+          <div style={{ marginTop: 30 }}>
+            <a href={cvDownloadUrl} target="_blank" rel="noopener noreferrer" className="rs-btn-primary" style={{
+                display: "inline-flex", alignItems: "center", gap: 10, textDecoration: "none",
+                color: "#fff", border: "none", padding: "14px 32px", borderRadius: 14,
+                fontFamily: "'Outfit', sans-serif", fontSize: 16, fontWeight: 600, cursor: "pointer"
+            }}>
+              <Download size={20} /> Download Resume
+            </a>
           </div>
-        </div>
 
-        {/* Experience */}
-        <div className={`rounded-2xl border ${cardBg} p-6 mb-10 backdrop-blur-sm shadow-lg`}>
-          <h2 className={`text-2xl font-bold mb-5 ${headingColor}`}>Experience</h2>
-          <div className="space-y-4">
+        </motion.div>
 
-            {/* Internship Example */}
-            <div className="pb-2">
-              <div className="flex items-center gap-2 font-semibold">
-                <Briefcase size={18} className={textSecondary} />
-                <span className={headingColor}>Software Engineering Intern — MTD Walkers Colombo 03 (Zmedia Digital)</span>
-              </div>
-              <p className={`text-sm ${textSecondary} mt-1`}>2024 — 2025</p>
-              <ul className={`mt-2 list-disc pl-6 space-y-1 ${textPrimary} text-md`}>
-                <li>Contributed to internal and client web products and business websites.</li>
-                <li>Improved UI/UX for better customer engagement and conversions.</li>
-                <li>Worked with MERN stack to build features and fix production issues.</li>
-              </ul>
+        {/* ══ PDF VIEWER SECTION ════════════════════════════════ */}
+        <motion.div initial="hidden" animate="visible" variants={fadeUp} style={{ display: "flex", justifyContent: "center" }}>
+          <div className="rs-glass-card pdf-container" style={{
+            width: "100%", maxWidth: "900px", background: surface, border: `1px solid ${border}`,
+            borderRadius: 24, padding: "20px", display: "flex", flexDirection: "column", gap: 16
+          }}>
+            
+            <div style={{ display: "flex", alignItems: "center", gap: 12, paddingLeft: 10 }}>
+              <FileText size={22} color={accent2} />
+              <h2 style={{ fontFamily: "'Outfit', sans-serif", fontSize: 20, fontWeight: 600, color: textPrimary, margin: 0 }}>
+                SE_Sandaruwan_CV_2026.pdf
+              </h2>
             </div>
+
+            <div style={{ width: "100%", height: "800px", position: "relative" }}>
+              <iframe 
+                src={cvEmbedUrl} 
+                width="100%" 
+                height="100%" 
+                allow="autoplay"
+                title="Sandaruwan Warnasooriya CV"
+                style={{ backgroundColor: isDark ? "#1E293B" : "#F1F5F9" }}
+              />
+            </div>
+            
           </div>
-        </div>
+        </motion.div>
 
-        {/* Projects */}
-        <div className={`rounded-2xl border ${cardBg} p-6 mb-10 backdrop-blur-sm shadow-lg`}>
-          <h2 className={`text-2xl font-bold mb-5 ${headingColor}`}>Highlighted Projects</h2>
-          <ul className={`space-y-3 ${textPrimary}`}>
-            <li>
-              <span className={`${headingColor} font-semibold`}>Travel & Tourism Web System</span> — Full-stack MERN travel platform with authentication, booking & services modules.
-            </li>
-            <li>
-              <span className={`${headingColor} font-semibold`}>AI Content Tool</span> — AI-powered web content generator using OpenAI API.
-            </li>
-            <li>
-              <span className={`${headingColor} font-semibold`}>Business & Portfolio Websites</span> — Designed and deployed business portfolios for clients and freelancers.
-            </li>
-          </ul>
-        </div>
-
-        {/* Education */}
-        <div className={`rounded-2xl border ${cardBg} p-6 mb-10 backdrop-blur-sm shadow-lg`}>
-          <h2 className={`text-2xl font-bold mb-5 ${headingColor}`}>Education</h2>
-          <div className="space-y-3">
-            <div>
-              <div className="flex items-center gap-2 font-semibold">
-                <GraduationCap size={18} className={textSecondary} />
-                <span className={headingColor}>B.Sc (Hons) in CIS — Sabaragamuwa University of Sri Lanka</span>
-              </div>
-              <p className={`text-sm ${textSecondary}`}>2021 — 2026</p>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 font-semibold">
-                <Award size={18} className={textSecondary} />
-                <span className={headingColor}>Diploma in Human Resource Management - IMBS Green Campus</span>
-              </div>
-              <p className={`text-sm ${textSecondary}`}>2022</p>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 font-semibold">
-                <FaSchool size={18} className={textSecondary} />
-                <span className={headingColor}>G.C.E.(A/L) 2019 - Narammala Mayurapada Central College</span>
-              </div>
-              <p className={`text-sm ${textSecondary}`}>2019</p>
-            </div>
-
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-          <a
-            href="/Sandaruwan_SE_CV.pdf"
-            download
-            className={`px-8 py-3 rounded-lg font-semibold cursor-pointer shadow transition-all duration-300 inline-flex items-center gap-2 ${
-              isDark ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-blue-600 hover:bg-blue-700 text-white"
-            }`}
-          >
-            <Download size={18} />
-            Download PDF
-          </a>
-
-          <a
-            href="https://drive.google.com/file/d/1-bR3deNKMltE0ceO5CVLCJ5AMCW-fkgF/view?usp=sharing"
-            target="_blank"
-            className={`px-8 py-3 rounded-lg border-2 font-semibold cursor-pointer transition-all duration-300 inline-flex items-center gap-2 ${
-              isDark
-                ? "border-blue-400 text-blue-400 hover:bg-blue-950/50"
-                : "border-blue-600 text-blue-600 hover:bg-blue-50"
-            }`}
-          >
-            <ExternalLink size={18} />
-            Open Online
-          </a>
-        </div>
       </div>
     </div>
   );
-};
-
-export default Resume;
+}
