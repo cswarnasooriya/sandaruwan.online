@@ -65,7 +65,7 @@ export default function Connect() {
     {
       icon: <GraduationCap className="w-6 h-6" />,
       label: "Education",
-      value: "BSc (Hons) in CIS 2026 · Diploma in HRM",
+      value: "BSc (Hons) in CIS - SUSL · Diploma in HRM",
     },
   ];
 
@@ -161,7 +161,7 @@ export default function Connect() {
               background: gradientPrimary, display: "flex", alignItems: "center", justifyContent: "center"
             }}>
               <img
-                src="./profile-2.JPG"
+                src="./profile.png"
                 alt="Sandaruwan Warnasooriya"
                 style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "28%" }}
               />
@@ -185,7 +185,7 @@ export default function Connect() {
           <p style={{
             fontFamily: "'Fira Code', monospace", fontSize: 15, color: accent2, margin: "0 0 16px", fontWeight: 500
           }}>
-            Software Engineer · Full Stack Developer
+            Associate Software Engineer · Former Full Stack Developer
           </p>
 
           <p style={{

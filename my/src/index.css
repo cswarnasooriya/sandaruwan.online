@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+
+
+/* Utility to hide footer on Home page to prevent scrollbars */
+.home-no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+}
+.home-no-scroll footer {
+  display: none !important;
+}
