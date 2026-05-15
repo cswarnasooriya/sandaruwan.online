@@ -13,6 +13,7 @@ import Connect from "./pages/Connect";
 import Footer from "./components/Footer";
 import Resume from "./pages/Resume";
 
+
 const Trackers = () => {
   const location = useLocation();
   return (
